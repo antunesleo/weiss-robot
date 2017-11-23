@@ -1,8 +1,8 @@
 #include <Wire.h>
 #include <AFMotor.h>
 
-const int rightSensor = 2;
-const int leftSensor = 0;
+const int rightSensorPin = 2;
+const int leftSensorPin = 0;
 
 AF_DCMotor rightMotor(3, MOTOR12_1KHZ);
 AF_DCMotor leftMotor(4);
@@ -17,8 +17,8 @@ void setup() {
 }
 
 void loop() {
-  int rightSensorValue = analogRead(rightSensor);
-  int leftSensorValue = analogRead(leftSensor);
+  int rightSensorValue = analogRead(rightSensorPin);
+  int leftSensorValue = analogRead(leftSensorPin);
  
  if (rightSensorValue >= 300 && leftSensorValue < 300) {
       rightMotor.run(RELEASE);
