@@ -1,38 +1,39 @@
 #include <Wire.h>
 #include <AFMotor.h>
 
-const int SensorDireito = 2; // Sensor do lado direito - pino A2 - Visto de tras para frente
-const int SensorEsquerdo = 0; // Sensor do lado esquerdo - pino A0
+const int rightSensor = 2;
+const int leftSensor = 0;
 
-AF_DCMotor motor1(3, MOTOR12_1KHZ); // Motor Direito - Born 1 e 1kHz pwm - Visto de tras para frente
-AF_DCMotor motor4(4); // Motor Esquerdo - Born 4 e 1kHz pwm - Motores 3 e 4 apenas em 1kHz
+AF_DCMotor rightMotor(3, MOTOR12_1KHZ);
+AF_DCMotor leftMotor(4);
 
-#define M1_DEFAULT_SPEED 75
-#define M4_DEFAULT_SPEED 75
-#define M1_MAX_SPEED 130
-#define M4_MAX_SPEED 130
+#define RIGHT_MOTOR_DEFAULT_SPEED 75
+#define LEFT_MOTOR_DEFAULT_SPEED 75
+#define RIGHT_MOTOR_MAX_SPEED 130
+#define LEFT_MOTOR_MAX_SPEED 130
 
 void setup() {
   delay(2000);
 }
 
 void loop() {
-  int sLadoDireito = analogRead(SensorDireito);
-  int sLadoEsquerdo = analogRead(SensorEsquerdo);
+  int rightSensorValue = analogRead(rightSensor);
+  int leftSensorValue = analogRead(leftSensor);
  
- if (sLadoDireito >= 300 && sLadoEsquerdo < 300) {
-      motor1.run(RELEASE);
-      motor4.run(FORWARD);
-      motor4.setSpeed(M4_DEFAULT_SPEED);
+ if (rightSensorValue >= 300 && leftSensorValue < 300) {
+      rightMotor.run(RELEASE);
+      leftMotor.run(FORWARD);
+      leftMotor.setSpeed(LEFT_MOTOR_DEFAULT_SPEED);
   }
-  else if (sLadoDireito < 300 && sLadoEsquerdo >= 300) {
-      motor1.run(FORWARD);
-      motor4.run(RELEASE);
-      motor1.setSpeed(M1_DEFAULT_SPEED);
+  else if (rightSensorValue < 300 && leftSensorValue >= 300) {
+      rightMotor.run(FORWARD);
+      leftMotor.run(RELEASE);
+      righMotor.setSpeed(RIGHT_MOTOR_DEFAULT_SPEED);
   }
   else {
-      motor1.run(FORWARD);
-      motor4.run(FORWARD);
-      motor1.setSpeed(M1_MAX_SPEED);
-      motor4.setSpeed(M4_MAX_SPEED);
+      rightMotor.run(FORWARD);
+      leftMotor.run(FORWARD);
+      rightMotor.setSpeed(RIGHT_MOTOR_DEFAULT_SPEED);
+      leftMotor.setSpeed(LEFT_MOTOR_DEFAULT_SPEED);
   }
+}
